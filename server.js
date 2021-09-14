@@ -15,6 +15,14 @@ const friends = [
   }
 ];
 
+app.use((req, res, next) => {
+  const start = Date.now();
+  next();
+  const delta = Date.now() - start;
+  console.log(`${req.method} ${req.url} ${delta}ms`);
+  console.log(`Your request took ${delta} miliseconds.`);
+});
+
 app.get('/', (req, res) => {
   res.send('Hello, welcome to my app');
 })
