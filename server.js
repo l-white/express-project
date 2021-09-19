@@ -7,16 +7,7 @@ const app = express();
 
 const PORT = 3000;
 
-const friends = [
-  {
-    id: 0,
-    name: "Albert Einstein",
-  },
-  {
-    id: 1,
-    name: 'Sir Isaac Newton',
-  }
-];
+app.use(express.json());
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -26,18 +17,17 @@ app.use((req, res, next) => {
   console.log(`Your request took ${delta} miliseconds.`);
 });
 
-app.use(function (err, req, res, next) {
-  console.log(err);
-  res.status(400).send('Something is not working');
-})
-
 app.get('/', (req, res) => {
   res.send('Hello, welcome to my app');
 })
 
-app.post('/friends', friendsController.postFriend);
-app.get('/friends', friendsController.getFriends);
-app.get('/friends/:friendId', friendsController.getFriend);
+const friendsRouter = express.Router();
+
+friendsRouter.post('/', friendsController.postFriend);
+friendsRouter.get('/', friendsController.getFriends);
+friendsRouter.get('/:friendId', friendsController.getFriend);
+
+app.use('/friends', friendsRouter);
 
 app.get('/messages', messagesController.getMessages);
 app.post('/messages', messagesController.postMessage);
