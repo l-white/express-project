@@ -1,5 +1,9 @@
+const path = require('path');
+
 function getMessages(req, res) {
-  res.send('<ul><li>Hello Albert!</li></ul>');
+  res.sendFile(path.join(__dirname, '..', 'public', 'images', 'skimountain.jpg'));
+  //res.send('<ul><li>Hello Albert!</li></ul>');
+  // https://github.com/odziem/express-project
 }
 
 function postMessage(req, res) {

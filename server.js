@@ -7,8 +7,6 @@ const app = express();
 
 const PORT = 3000;
 
-app.use(express.json());
-
 app.use((req, res, next) => {
   const start = Date.now();
   next();
@@ -16,6 +14,9 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.baseUrl}${req.url} ${delta}ms`);
   console.log(`Your request took ${delta} miliseconds.`);
 });
+
+app.use(express.json());
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   res.send('Hello, welcome to my app');
