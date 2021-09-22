@@ -1,3 +1,3 @@
 # Express Server
 
-An express server that gets and posts messages as well as friends with a simple front end.
+An express server that gets and posts messages as well as friends with a simple front end that uses the handlebars templating engine.
