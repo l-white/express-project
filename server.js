@@ -1,9 +1,13 @@
 const express = require('express');
+const path = require('path');
 
 const messagesRouter = require('./routers/messages.router.js');
 const friendsRouter = require('./routers/friends.router.js');
 
 const app = express();
+
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 const PORT = 3000;
 
@@ -16,10 +20,13 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-app.use(express.static('public'));
+app.use('/site', express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.send('Hello, welcome to my app');
+  res.render('index', {
+    title: 'My friends are clever!',
+    header: 'Let\'s go skiing!',
+  })
 });
 
 app.use('/friends', friendsRouter);
